@@ -52,15 +52,13 @@ resource "azapi_resource" "aks_automatic" {
       },
       networkProfile = {
         advancedNetworking = {
-          enabled       = true
           observability = {
-            enabled = true
+            enabled       = true
+            tlsManagement = "Managed"
           }
           security = {
-            advancedNetworkPolicies = "FQDN"
-            enabled                 = true
-            transitEncryption = {
-              type = "None"
+            fqdnPolicy = {
+              enabled = true
             }
           }
         }
