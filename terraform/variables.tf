@@ -87,3 +87,9 @@ variable "acr_name" {
   type        = string
   default     = "acr"  # This will be combined with the random string
 }
+
+variable "aks_api_version" {
+  description = "AKS Managed Cluster resource API version (keep at latest stable or preview as needed)"
+  type        = string
+  default     = "2025-07-01"
+}

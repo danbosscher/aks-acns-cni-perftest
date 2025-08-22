@@ -3,7 +3,8 @@ resource "azapi_resource" "aks_automatic" {
   name                      = "${var.aks_automatic_name}-${random_string.cluster_name_suffix.result}"
   location                  = var.location
   parent_id                 = azurerm_resource_group.aks_rg.id
-  type                      = "Microsoft.ContainerService/managedClusters@2024-03-02-preview"
+  // Using latest AKS Managed Cluster API version (see variables.tf: aks_api_version)
+  type                      = "Microsoft.ContainerService/managedClusters@${var.aks_api_version}"
   schema_validation_enabled = false
   response_export_values    = ["*"] // Export all values from the response, including identity information
 
