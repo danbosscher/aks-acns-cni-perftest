@@ -54,7 +54,6 @@ resource "azapi_resource" "aks_automatic" {
         advancedNetworking = {
           observability = {
             enabled       = true
-            tlsManagement = "Managed"
           }
           security = {
             fqdnPolicy = {
