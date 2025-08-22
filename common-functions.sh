@@ -42,4 +42,3 @@ EOF
 
   echo "✅ ACR values updated in $output_file"
 }
-}
