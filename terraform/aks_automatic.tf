@@ -48,6 +48,21 @@ resource "azapi_resource" "aks_automatic" {
         adminGroupObjectIDs = [var.aad_admin_group_object_id],
         tenantID = var.aad_tenant_id,
         enableAzureRBAC = true
+      },
+      networkProfile = {
+        advancedNetworking = {
+          enabled       = true
+          observability = {
+            enabled = true
+          }
+          security = {
+            advancedNetworkPolicies = "FQDN"
+            enabled                 = true
+            transitEncryption = {
+              type = "None"
+            }
+          }
+        }
       }
     }
     identity = {

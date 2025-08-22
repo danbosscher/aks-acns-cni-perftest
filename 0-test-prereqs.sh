@@ -52,6 +52,9 @@ run_test "Azure CLI aks-preview extension" "az extension show --name aks-preview
 # Check if AutomaticSKUPreview feature is registered
 run_test "AutomaticSKUPreview feature registration" "az feature show --namespace Microsoft.ContainerService --name AutomaticSKUPreview --query properties.state -o tsv | grep -q 'Registered'" "false"
 
+# Check if AdvancedNetworkingL7PolicyPreview feature is registered
+run_test "AdvancedNetworkingL7PolicyPreview feature registration" "az feature show --namespace Microsoft.ContainerService --name AdvancedNetworkingL7PolicyPreview --query properties.state -o tsv | grep -q 'Registered'" "false"
+
 # Check if Microsoft.ContainerService provider is registered
 run_test "Microsoft.ContainerService provider registration" "az provider show --namespace Microsoft.ContainerService --query registrationState -o tsv | grep -q 'Registered'" "false"
 

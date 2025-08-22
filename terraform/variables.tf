@@ -34,16 +34,10 @@ variable "aks_automatic_name" {
   default     = "aks-automatic"
 }
 
-variable "deploy_standard" {
-  description = "Whether to deploy the standard AKS cluster"
-  default     = true
-  type        = bool
-}
-
 variable "deploy_automatic" {
   description = "Boolean to deploy the AKS cluster with automatic node provisioning"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "system_node_count" {

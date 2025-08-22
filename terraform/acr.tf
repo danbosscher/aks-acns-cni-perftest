@@ -12,14 +12,6 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = true
 }
 
-# Assign AcrPull role to both AKS clusters if they exist
-resource "azurerm_role_assignment" "aks_standard_to_acr" {
-  count                = var.deploy_standard ? 1 : 0
-  principal_id         = azurerm_kubernetes_cluster.aks_standard[0].kubelet_identity[0].object_id
-  role_definition_name = "AcrPull"
-  scope                = azurerm_container_registry.acr.id
-}
-
 resource "azurerm_role_assignment" "aks_automatic_to_acr" {
   count                = var.deploy_automatic ? 1 : 0
   principal_id         = jsondecode(azapi_resource.aks_automatic[0].output).properties.identityProfile.kubeletidentity.objectId
