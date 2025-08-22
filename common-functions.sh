@@ -42,35 +42,4 @@ EOF
 
   echo "✅ ACR values updated in $output_file"
 }
-
-# Updates the headlamp-values.yaml file with the current ACR name
-update_headlamp_values() {
-  local acr_name=$1
-  local output_file="${2:-headlamp-values.yaml}"
-
-  echo "Updating Headlamp values in $output_file..."
-
-  cat > "$output_file" << EOF
-# Custom values for Headlamp deployed from ACR
-image:
-  registry: "$acr_name"
-  repository: "headlamp"
-  tag: "v0.29.0"
-  pullPolicy: IfNotPresent
-
-# Configure image pull secrets
-imagePullSecrets:
-  - name: acr-auth
-
-# Add resource limits to satisfy container policy
-resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-EOF
-
-  echo "✅ Headlamp values updated in $output_file"
 }

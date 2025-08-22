@@ -97,7 +97,7 @@ mongodb:
 rabbitmq:
   image:
     repository: "library/rabbitmq"
-    tag: "3.10-management-alpine"
+    tag: "3.13-server"
 
 podAnnotations: {}
 

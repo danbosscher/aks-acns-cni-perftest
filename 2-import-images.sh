@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+source "$(dirname "$0")/common-functions.sh"
 
 # This script imports container images from various registries into your own Azure Container Registry
 
@@ -20,7 +21,7 @@ declare -A IMAGES=(
   ["ghcr.io/azure-samples/aks-store-demo/store-front:latest"]="${ACR_NAME}/aks-store-demo/store-front:latest"
   ["ghcr.io/azure-samples/aks-store-demo/virtual-customer:latest"]="${ACR_NAME}/aks-store-demo/virtual-customer:latest"
   ["ghcr.io/azure-samples/aks-store-demo/virtual-worker:latest"]="${ACR_NAME}/aks-store-demo/virtual-worker:latest"
-  ["mcr.microsoft.com/mirror/docker/library/rabbitmq:3.10-management-alpine"]="${ACR_NAME}/library/rabbitmq:3.10-management-alpine"
+  ["mcr.microsoft.com/azurelinux/base/rabbitmq-server:3.13"]="${ACR_NAME}/library/rabbitmq-server:3.13"
   ["mcr.microsoft.com/mirror/docker/library/mongo:4.2"]="${ACR_NAME}/library/mongo:4.2"
   ["polinux/stress"]="${ACR_NAME}/stress:latest"
   ["ghcr.io/headlamp-k8s/headlamp:v0.29.0"]="${ACR_NAME}/headlamp:v0.29.0"
