@@ -50,18 +50,6 @@ resource "azapi_resource" "aks_automatic" {
         tenantID = var.aad_tenant_id,
         enableAzureRBAC = true
       },
-      networkProfile = {
-        advancedNetworking = {
-          observability = {
-            enabled       = true
-          }
-          security = {
-            fqdnPolicy = {
-              enabled = true
-            }
-          }
-        }
-      }
     }
     identity = {
       type = "SystemAssigned"
