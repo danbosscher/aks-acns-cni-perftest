@@ -44,7 +44,7 @@ for SOURCE_IMAGE in "${!IMAGES[@]}"; do
 
   # Push to ACR
   docker push $TARGET_IMAGE
-
+https://www.google.com/search?q=helm+describe+release+site:stackoverflow.com&sca_esv=ce44fb6aa5ce43e4&sxsrf=AE3TifP4lCwKFMKjgm-mU398s4jlth0Uhg:1755873423159&sa=X&ved=2ahUKEwjKxKGd0p6PAxVkWkEAHRUhGmgQ8poLegQIGRAE
   echo "✅ Successfully imported $(basename $SOURCE_IMAGE | cut -d':' -f1)"
 done
 
