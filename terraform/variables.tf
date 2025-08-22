@@ -21,21 +21,14 @@ variable "kubernetes_version" {
   default     = "1.33.2"
   type        = string
 }
-
-variable "aks_standard_name" {
-  description = "Name of the standard AKS cluster"
-  default     = "aks-standard"
-  type        = string
-}
-
 variable "aks_automatic_name" {
-  description = "Name for the AKS cluster with automatic node provisioning"
+  description = "Name for the AKS Automatic cluster"
   type        = string
-  default     = "aks-automatic"
+  default     = "aks-automatic-acnsenabled"
 }
 
 variable "deploy_automatic" {
-  description = "Boolean to deploy the AKS cluster with automatic node provisioning"
+  description = "Boolean to deploy the primary AKS Automatic cluster"
   type        = bool
   default     = true
 }
@@ -92,4 +85,22 @@ variable "aks_api_version" {
   description = "AKS Managed Cluster resource API version (keep at latest stable or preview as needed)"
   type        = string
   default     = "2025-07-01"
+}
+
+variable "enable_advanced_networking" {
+  description = "Enable Advanced Container Networking Services (advancedNetworking block) on the primary automatic cluster"
+  type        = bool
+  default     = true
+}
+
+variable "aks_automatic_basic_name" {
+  description = "Name for the secondary Automatic cluster without advanced networking"
+  type        = string
+  default     = "aks-automatic-acnsdisabled"
+}
+
+variable "deploy_automatic_basic" {
+  description = "Boolean to deploy the secondary Automatic cluster without advanced networking"
+  type        = bool
+  default     = true
 }
