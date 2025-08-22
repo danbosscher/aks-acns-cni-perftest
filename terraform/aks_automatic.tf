@@ -50,6 +50,19 @@ resource "azapi_resource" "aks_automatic" {
         tenantID = var.aad_tenant_id,
         enableAzureRBAC = true
       },
+      networkProfile = {
+        // Enable Cilium dataplane required for Advanced Networking security (FQDN policies)
+        networkDataplane = "cilium"
+        advancedNetworking = {
+          enabled = true
+          observability = {
+            enabled = true
+          }
+          security = {
+            enabled = true
+          }
+        }
+      }
     }
     identity = {
       type = "SystemAssigned"
