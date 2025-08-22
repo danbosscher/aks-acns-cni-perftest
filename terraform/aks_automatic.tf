@@ -15,19 +15,12 @@ resource "azapi_resource" "aks_automatic" {
       enableRBAC = true
       agentPoolProfiles = [
         {
-          name = "system"
-          count = var.system_node_count
-          vmSize = var.sku
-          mode = "System"
+          name                = "system"
+          count               = var.system_node_count
+          vmSize              = var.sku
+          mode                = "System"
           orchestratorVersion = var.kubernetes_version
-          availabilityZones = [for z in var.zones : tostring(z)]
-        },
-        {
-          name = "user"
-          count = var.user_node_count
-          vmSize = var.sku
-          mode = "User"
-          availabilityZones = [for z in var.zones : tostring(z)]
+          availabilityZones   = [for z in var.zones : tostring(z)]
         }
       ],
       # Add Azure Policy configuration
@@ -50,18 +43,22 @@ resource "azapi_resource" "aks_automatic" {
         tenantID = var.aad_tenant_id,
         enableAzureRBAC = true
       },
-      networkProfile = merge(
-        {
-          networkDataplane = var.enable_advanced_networking ? "cilium" : null
-        },
-        var.enable_advanced_networking ? {
-          advancedNetworking = {
+      networkProfile = {
+        // Enable Cilium dataplane required for Advanced Networking security (FQDN policies)
+        networkDataplane = "cilium"
+        advancedNetworking = {
+          enabled = true
+          observability = {
             enabled = true
-            observability = { enabled = true }
-            security       = { enabled = true }
           }
-        } : {}
-      )
+          security = {
+            enabled = true
+          }
+        }
+      },
+      nodeProvisioningProfile = {
+        mode = "Auto"
+      }
     }
     identity = {
       type = "SystemAssigned"
@@ -96,13 +93,6 @@ resource "azapi_resource" "aks_automatic_basic" {
           mode                = "System"
           orchestratorVersion = var.kubernetes_version
           availabilityZones   = [for z in var.zones : tostring(z)]
-        },
-        {
-          name                = "user"
-          count               = var.user_node_count
-          vmSize              = var.sku
-          mode                = "User"
-          availabilityZones   = [for z in var.zones : tostring(z)]
         }
       ]
       addonProfiles = {
@@ -114,8 +104,15 @@ resource "azapi_resource" "aks_automatic_basic" {
         adminGroupObjectIDs  = [var.aad_admin_group_object_id]
         tenantID             = var.aad_tenant_id
         enableAzureRBAC      = true
+      },
+      networkProfile = {
+        networkDataplane = "cilium"
+        # advancedNetworking intentionally omitted for baseline cluster
       }
       // No advancedNetworking block here
+      nodeProvisioningProfile = {
+        mode = "Auto"
+      }
     }
     identity = { type = "SystemAssigned" }
     sku      = { name = "Automatic", tier = "Standard" }

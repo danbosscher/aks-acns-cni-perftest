@@ -16,16 +16,13 @@ spec:
       - key: CriticalAddonsOnly
         operator: Exists
       - effect: NoSchedule
-        operator: Exists
+        key: node-role.kubernetes.io/master
       containers:
-      - name: cpu-stress
-        image: polinux/stress
-        command: ["stress"]
-        args: ["--cpu", "4", "--io", "2", "--vm", "2", "--vm-bytes", "512M", "--timeout", "600s"]
+      - name: stress
+        image: akstakedowndemoacr.azurecr.io/stress:latest
         resources:
-          requests:
-            memory: "1Gi"
-            cpu: "500m"
           limits:
-            memory: "2Gi"
-            cpu: "1000m"
+            cpu: "3.5"
+            memory: "1Gi"
+        command: ["stress"]
+        args: ["--cpu", "4", "--io", "3", "--vm", "2", "--vm-bytes", "512M", "--timeout", "600s"]

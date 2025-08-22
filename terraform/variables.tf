@@ -39,11 +39,6 @@ variable "system_node_count" {
   type        = number
 }
 
-variable "user_node_count" {
-  description = "Initial node count for user pools"
-  default     = 3
-  type        = number
-}
 
 variable "zones" {
   description = "Availability zones for node pools"
@@ -51,17 +46,6 @@ variable "zones" {
   default     = [1, 2, 3]
 }
 
-variable "enable_auto_scaling" {
-  description = "Whether to enable auto-scaling for node pools"
-  type        = bool
-  default     = true
-}
-
-variable "max_node_count" {
-  description = "Maximum number of nodes in a node pool when auto-scaling"
-  type        = number
-  default     = 6
-}
 
 variable "aad_tenant_id" {
   description = "Azure Active Directory tenant ID for AKS cluster integration"
@@ -104,3 +88,4 @@ variable "deploy_automatic_basic" {
   type        = bool
   default     = true
 }
+
